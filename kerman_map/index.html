@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نقشه‌های کرمان</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #eef1f7;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 10px;
+      background: #f7f9fc;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      border-radius: 0 0 25px 25px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #5a5cac;
+    }
+
+    #map {
+      width: 90%;
+      height: 350px;
+      margin: 20px auto;
+      border-radius: 25px;
+      box-shadow: inset 8px 8px 20px rgba(0,0,0,0.1), inset -8px -8px 20px rgba(255,255,255,1);
+    }
+
+    .accordion {
+      width: 90%;
+      margin: 20px auto;
+    }
+
+    .item {
+      background: #eef1f7;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      box-shadow: 8px 8px 20px rgba(0,0,0,0.1), -8px -8px 20px rgba(255,255,255,1);
+      cursor: pointer;
+    }
+
+    .item h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #6a67ce;
+    }
+
+    .content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s ease;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: 500;
+      color: white;
+      background: linear-gradient(135deg, #6a67ce, #9d68ff);
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>نقشه‌های کرمان</h1>
+</header>
+
+<div id="map"></div>
+
+<div class="accordion">
+
+  <div class="item" onclick="toggleContent(this)">
+    <h3>نقشه کرمان: حریم‌ها و ساختمان‌ها</h3>
+    <div class="content">
+      <p>این فایل شامل آخرین حریم‌ها و محدوده‌های ساختمانی شهر کرمان است که برای پروژه‌های شهری و مطالعات GIS مورد استفاده قرار می‌گیرد.</p>
+      <div class="buttons">
+        <button onclick="downloadFile(event, 'https://drive.google.com/uc?export=download&id=1N5O7ThUmMgoSPJW-CjAfZ8fZ11Q8b4lN')">دانلود</button>
+        <button onclick="copyLink(event, 'https://drive.google.com/file/d/1N5O7ThUmMgoSPJW-CjAfZ8fZ11Q8b4lN/view?usp=sharing')">کپی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggleContent(this)">
+    <h3>طرح تفصیلی کرمان</h3>
+    <div class="content">
+      <p>طرح تفصیلی جدید کرمان با جزئیات کامل و بخش‌بندی دقیق، مناسب مهندسین و طراحان شهری.</p>
+      <div class="buttons">
+        <button onclick="downloadFile(event, 'https://drive.google.com/uc?export=download&id=1McGTWFxdg3GJSDKxCv4-9gbQX6HcRrHf')">دانلود</button>
+        <button onclick="copyLink(event, 'https://drive.google.com/file/d/1McGTWFxdg3GJSDKxCv4-9gbQX6HcRrHf/view?usp=sharing')">کپی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggleContent(this)">
+    <h3>نقشه الغدیر</h3>
+    <div class="content">
+      <p>نقشه کامل منطقه الغدیر کرمان، مناسب برای پروژه‌های عمرانی و پژوهشی.</p>
+      <div class="buttons">
+        <button onclick="downloadFile(event, 'https://drive.google.com/uc?export=download&id=1OM-2Za1E2lqyV67MfYyU-NEoV9vBgMJx')">دانلود</button>
+        <button onclick="copyLink(event, 'https://drive.google.com/file/d/1OM-2Za1E2lqyV67MfYyU-NEoV9vBgMJx/view?usp=sharing')">کپی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggleContent(this)">
+    <h3>نقشه GISKER</h3>
+    <div class="content">
+      <p>فایل gisker شامل لایه‌های GIS کاربردی و حرفه‌ای از شهر کرمان است.</p>
+      <div class="buttons">
+        <button onclick="downloadFile(event, 'https://drive.google.com/uc?export=download&id=1efXaWrN-cOrjX_JuGWXq3HGriOqd3XpF')">دانلود</button>
+        <button onclick="copyLink(event, 'https://drive.google.com/file/d/1efXaWrN-cOrjX_JuGWXq3HGriOqd3XpF/view?usp=sharing')">کپی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggleContent(this)">
+    <h3>نقشه منطقه‌بندی کرمان</h3>
+    <div class="content">
+      <p>جدیدترین لایه منطقه‌بندی شهری کرمان ویژه پروژه‌های مدیریت شهری.</p>
+      <div class="buttons">
+        <button onclick="downloadFile(event, 'https://drive.google.com/uc?export=download&id=1RAg8Q9tQRw6Rm05cPtX8pc92GRx0GZfw')">دانلود</button>
+        <button onclick="copyLink(event, 'https://drive.google.com/file/d/1RAg8Q9tQRw6Rm05cPtX8pc92GRx0GZfw/view?usp=sharing')">کپی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggleContent(this)">
+    <h3>اسکریپت اتوکد (اتولیسپ)</h3>
+    <div class="content">
+      <p>اتولیسپ حرفه‌ای برای تولید جدول مساحت در اتوکد – سریع، دقیق و کاملاً خودکار.</p>
+      <div class="buttons">
+        <button onclick="downloadFile(event, 'https://drive.google.com/uc?export=download&id=1ZeE2vPJphsVPmXlLyhBxXyonVHQQYG4Z')">دانلود</button>
+        <button onclick="copyLink(event, 'https://drive.google.com/file/d/1ZeE2vPJphsVPmXlLyhBxXyonVHQQYG4Z/view?usp=sharing')">کپی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="item contact" onclick="toggleContent(this)" style="background:#dff3ff; box-shadow:8px 8px 20px rgba(0,0,0,0.1), -8px -8px 20px rgba(255,255,255,1);">
+    <h3 style="color:#0088cc;">راه‌های ارتباطی</h3>
+    <div class="content">
+      <p><strong>تهیه و تنظیم:</strong> سیدرضا سلجوقی</p>
+
+      <div class="buttons">
+        <button onclick="window.location.href='tel:+989103735764'; event.stopPropagation();">
+          📞 تماس
+        </button>
+        <button onclick="window.open('https://t.me/+989103735764', '_blank'); event.stopPropagation();">
+          📩 تلگرام
+        </button>
+        <button onclick="window.open('https://wa.me/989103735764', '_blank'); event.stopPropagation();">
+          💬 واتساپ
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Map
+  var map = L.map('map').setView([30.2839, 57.0834], 13);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+  }).addTo(map);
+
+  // Accordion
+  function toggleContent(el) {
+    const content = el.querySelector('.content');
+    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+    document.querySelectorAll('.content').forEach(c => {
+      c.style.maxHeight = '0px';
+    });
+
+    if (!isOpen) {
+      content.style.maxHeight = content.scrollHeight + 'px';
+    }
+  }
+
+  function downloadFile(event, url) {
+    event.stopPropagation();
+    window.location.href = url;
+  }
+
+  function copyLink(event, link) {
+    event.stopPropagation();
+    navigator.clipboard.writeText(link);
+    alert('لینک کپی شد!');
+  }
+</script>
+
+</body>
+</html>
