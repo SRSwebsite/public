@@ -33,6 +33,7 @@
     #map {
       width: 90%;
       height: 350px;
+      min-height: 350px;
       margin: 20px auto;
       border-radius: 25px;
       box-shadow: inset 8px 8px 20px rgba(0,0,0,0.1), inset -8px -8px 20px rgba(255,255,255,1);
@@ -44,32 +45,30 @@
     }
 
     .item {
-      background: #eef1f7;
-      border-radius: 20px;
       margin-bottom: 15px;
-      padding: 15px 20px;
+      border-radius: 20px;
+      background: #eef1f7;
       box-shadow: 8px 8px 20px rgba(0,0,0,0.1), -8px -8px 20px rgba(255,255,255,1);
-      cursor: pointer;
     }
 
     .item h3 {
       margin: 0;
-      font-size: 20px;
+      padding: 18px 20px;
+      cursor: pointer;
+      font-size: 18px;
       color: #6a67ce;
     }
 
     .content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.45s ease;
-      line-height: 1.7;
-      color: #444;
+      display: none;
+      padding: 0 20px;
     }
 
     .buttons {
       margin-top: 15px;
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     button {
@@ -78,17 +77,26 @@
       border-radius: 12px;
       font-size: 14px;
       cursor: pointer;
-      transition: 0.2s;
       font-weight: 500;
       color: white;
       background: linear-gradient(135deg, #6a67ce, #9d68ff);
       box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    button:hover {
-      opacity: 0.9;
+    .contact {
+      background: #dff3ff !important;
     }
 
+    .contact button {
+      background: linear-gradient(135deg, #0077ff, #00bbff);
+    }
+
+    @media(max-width: 600px) {
+      #map { height: 300px; }
+    }
   </style>
 </head>
 <body>
@@ -101,8 +109,8 @@
 
 <div class="accordion">
 
-  <div class="item" onclick="toggleContent(this)">
-    <h3>نقشه کرمان: حریم‌ها و ساختمان‌ها</h3>
+  <div class="item">
+    <h3 onclick="toggleContent(this)">نقشه کرمان: حریم‌ها و ساختمان‌ها</h3>
     <div class="content">
       <p>این فایل شامل آخرین حریم‌ها و محدوده‌های ساختمانی شهر کرمان است که برای پروژه‌های شهری و مطالعات GIS مورد استفاده قرار می‌گیرد.</p>
       <div class="buttons">
@@ -112,8 +120,8 @@
     </div>
   </div>
 
-  <div class="item" onclick="toggleContent(this)">
-    <h3>طرح تفصیلی کرمان</h3>
+  <div class="item">
+    <h3 onclick="toggleContent(this)">طرح تفصیلی کرمان</h3>
     <div class="content">
       <p>طرح تفصیلی جدید کرمان با جزئیات کامل و بخش‌بندی دقیق، مناسب مهندسین و طراحان شهری.</p>
       <div class="buttons">
@@ -123,8 +131,8 @@
     </div>
   </div>
 
-  <div class="item" onclick="toggleContent(this)">
-    <h3>نقشه الغدیر</h3>
+  <div class="item">
+    <h3 onclick="toggleContent(this)">نقشه الغدیر</h3>
     <div class="content">
       <p>نقشه کامل منطقه الغدیر کرمان، مناسب برای پروژه‌های عمرانی و پژوهشی.</p>
       <div class="buttons">
@@ -134,8 +142,8 @@
     </div>
   </div>
 
-  <div class="item" onclick="toggleContent(this)">
-    <h3>نقشه GISKER</h3>
+  <div class="item">
+    <h3 onclick="toggleContent(this)">نقشه GISKER</h3>
     <div class="content">
       <p>فایل gisker شامل لایه‌های GIS کاربردی و حرفه‌ای از شهر کرمان است.</p>
       <div class="buttons">
@@ -145,8 +153,8 @@
     </div>
   </div>
 
-  <div class="item" onclick="toggleContent(this)">
-    <h3>نقشه منطقه‌بندی کرمان</h3>
+  <div class="item">
+    <h3 onclick="toggleContent(this)">نقشه منطقه‌بندی کرمان</h3>
     <div class="content">
       <p>جدیدترین لایه منطقه‌بندی شهری کرمان ویژه پروژه‌های مدیریت شهری.</p>
       <div class="buttons">
@@ -156,8 +164,8 @@
     </div>
   </div>
 
-  <div class="item" onclick="toggleContent(this)">
-    <h3>اسکریپت اتوکد (اتولیسپ)</h3>
+  <div class="item">
+    <h3 onclick="toggleContent(this)">اسکریپت اتوکد (اتولیسپ)</h3>
     <div class="content">
       <p>اتولیسپ حرفه‌ای برای تولید جدول مساحت در اتوکد – سریع، دقیق و کاملاً خودکار.</p>
       <div class="buttons">
@@ -167,59 +175,39 @@
     </div>
   </div>
 
-  <div class="item contact" onclick="toggleContent(this)" style="background:#dff3ff; box-shadow:8px 8px 20px rgba(0,0,0,0.1), -8px -8px 20px rgba(255,255,255,1);">
-    <h3 style="color:#0088cc;">راه‌های ارتباطی</h3>
+  <div class="item contact">
+    <h3 onclick="toggleContent(this)" style="color:#0088cc;">راه‌های ارتباطی</h3>
     <div class="content">
       <p><strong>تهیه و تنظیم:</strong> سیدرضا سلجوقی</p>
-
       <div class="buttons">
-        <button onclick="window.location.href='tel:+989103735764'; event.stopPropagation();">
-          📞 تماس
-        </button>
-        <button onclick="window.open('https://t.me/+989103735764', '_blank'); event.stopPropagation();">
-          📩 تلگرام
-        </button>
-        <button onclick="window.open('https://wa.me/989103735764', '_blank'); event.stopPropagation();">
-          💬 واتساپ
-        </button>
+        <button onclick="callMe(event)">📞 تماس</button>
+        <button onclick="openTelegram(event)">📩 تلگرام</button>
+        <button onclick="openWhatsapp(event)">💬 واتساپ</button>
       </div>
-    </div>
     </div>
   </div>
 
 </div>
 
 <script>
-  // Map
-  var map = L.map('map').setView([30.2839, 57.0834], 13);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19
-  }).addTo(map);
+function toggleContent(el) {
+  const content = el.nextElementSibling || el.querySelector('.content');
+  if (!content) return;
+  const allContents = document.querySelectorAll('.content');
+  allContents.forEach(c => { if(c!==content) c.style.display='none'; });
+  content.style.display = content.style.display==='block' ? 'none':'block';
+}
 
-  // Accordion
-  function toggleContent(el) {
-    const content = el.querySelector('.content');
-    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+function stop(e){ e.stopPropagation(); e.preventDefault(); }
+function downloadFile(e,url){ stop(e); window.location.href=url; }
+function copyLink(e,link){ stop(e); navigator.clipboard.writeText(link); alert('لینک کپی شد!'); }
+function callMe(e){ stop(e); window.location.href='tel:+989103735764'; }
+function openTelegram(e){ stop(e); window.open('https://t.me/+989103735764','_blank'); }
+function openWhatsapp(e){ stop(e); window.open('https://wa.me/989103735764','_blank'); }
 
-    document.querySelectorAll('.content').forEach(c => {
-      c.style.maxHeight = '0px';
-    });
-
-    if (!isOpen) {
-      content.style.maxHeight = content.scrollHeight + 'px';
-    }
-  }
-
-  function downloadFile(event, url) {
-    event.stopPropagation();
-    window.location.href = url;
-  }
-
-  function copyLink(event, link) {
-    event.stopPropagation();
-    navigator.clipboard.writeText(link);
-    alert('لینک کپی شد!');
-  }
+var map = L.map('map').setView([30.2839, 57.0834], 13);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{ maxZoom:19 }).addTo(map);
+setTimeout(()=>{map.invalidateSize();},600);
 </script>
 
 </body>
